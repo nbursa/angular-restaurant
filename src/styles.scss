@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+/* 
+This is central scss document used to import partials from "src/styles" directory containing global styles, find more details at: https://sass-lang.com/guide#topic-4
+*/
+
+@import 
+// Fonts
+'src/styles/fonts',
+// Colors
+'src/styles/colors',
+// Global styles
+'src/styles/global';
