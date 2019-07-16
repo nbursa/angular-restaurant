@@ -1,62 +1,86 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { LoginService } from '../login.service';
-import { first } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Router, ActivatedRoute } from "@angular/router";
+import { LoginService } from "../login.service";
+import { first } from "rxjs/operators";
+import { HttpHeaders } from "@angular/common/http";
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.scss"],
     providers: [LoginService]
 })
-
 export class LoginComponent implements OnInit {
-
-    private _shown = false;
-    private _error = false;
-    form: FormGroup;
+    _shown = false;
+    _error = false;
+    error = '';
+    loginForm: FormGroup;
     returnUrl: string;
+    basic = '';
+    credentials = '';
+    email = '';
+    password = '';
 
     constructor(
-        private fb: FormBuilder,
-        private logger: LoginService,
+        private formBuilder: FormBuilder,
+        private authenticationService: LoginService,
         private route: ActivatedRoute,
-        private router: Router,
-    ) {}
+        private router: Router
+    ) { }
 
     ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
 
-        this.form = this.fb.group({
-            username: [null, Validators.required],
-            password: [null, Validators.required]
-          });
+        // reset login status
+        // this.authenticationService.logout();
 
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'menu';
-
+        // this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "menu";
     }
 
     toggle() {
         this._shown = !this._shown;
     }
 
-    onSubmit() {
+    // convenience getter for easy access to form fields
+    get f() { return this.loginForm.controls; }
 
-        if (this.form.invalid) {
+    onSubmit() {
+        if (this.loginForm.invalid) {
             return;
         }
+        const scope = "app";
+        const provider = "username";
 
-        return this.logger.userData(this.form.get('username').value, this.form.get('password').value)
+        this.credentials = this.f.username.value + ":" + this.f.password.value;
+        this.basic = "Basic " + btoa(this.credentials);
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': this.basic });
+        let options = { headers: headers };
+
+        return this.authenticationService
+            .login(
+                this.f.username.value,
+                this.f.password.value,
+                options
+            )
             .pipe(first())
             .subscribe(
                 data => {
                     console.log(data)
-                    this.router.navigate([this.returnUrl]);
+                    console.log(this.route.snapshot.queryParams["returnUrl"]);
+                    // this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    console.log(error)
-                });
-
+                    // this._error = !this._error;
+                    this.error = JSON.stringify(error.statusText + " : " + error.message);
+                    console.log(error);
+                }
+            );
     }
-
 }

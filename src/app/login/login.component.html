@@ -1,6 +1,6 @@
 <div class="login-form" [ngClass]="_error ? 'error' : ''">
     <h1>Login</h1>
-    <form [formGroup]="form">
+    <form [formGroup]="loginForm">
         <div class="form-group">
             <input type="text" class="form-control" id="InputEmail" aria-describedby="emailHelp"
             placeholder="Username" formControlName="username">
@@ -9,9 +9,10 @@
             <input [type]="_shown ? 'text' : 'password'" class="form-control"  id="InputPassword" placeholder="Password" formControlName="password">
             <div class="eye-icon" (click)="toggle()" [ngClass]="_shown ? 'open' : ''"></div>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid" (click)="onSubmit()">Submit</button>
-        <div class="error-message">
-            We couldn’t find an account matching the username and password you entered. Please check your username and password and try again.
+        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" (click)="onSubmit()">Submit</button>
+        <div class="error-message" *ngIf="error" class="alert alert-danger">
+            {{ error }}
+            <!-- We couldn’t find an account matching the username and password you entered. Please check your username and password and try again. -->
         </div>
     </form>
 </div>

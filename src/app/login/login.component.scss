@@ -97,5 +97,9 @@
         font-size: 11px;
         line-height: 18px;
         margin-top: 10px;
+        word-wrap: break-word;
+    }
+    .alert-danger {
+        word-wrap: break-word;
     }
 }
