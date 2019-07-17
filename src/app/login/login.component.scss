@@ -35,9 +35,9 @@
         .form-group {
             position: relative;
             .form-control {
-                border: initial;
-                border-radius: initial;
-                outline: initial;
+                border: 0;
+                border-radius: 0;
+                outline: 0;
                 height: 28px;
                 margin-top: 30px;
                 border-bottom: 1px solid var(--gray);
@@ -46,8 +46,16 @@
                 font-size: 16px;
                 line-height: 27px;
                 padding-left: 0;
+                background-color: var(--white) !important;
+                -webkit-appearance: none;
+                &:focus {
+                    box-shadow: none;
+                }
                 &.error {
                     border-bottom: 1px solid var(--red);
+                }
+                &-internal-autofill-selected {
+                    background-color: var(--white) !important;
                 }
             }
             .eye-icon {

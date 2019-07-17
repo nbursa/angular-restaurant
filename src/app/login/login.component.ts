@@ -11,6 +11,7 @@ import { HttpHeaders } from "@angular/common/http";
     styleUrls: ["./login.component.scss"],
     providers: [LoginService]
 })
+
 export class LoginComponent implements OnInit {
     _shown = false;
     _error = false;
@@ -30,15 +31,15 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        // Get input fields values
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-
         // reset login status
-        // this.authenticationService.logout();
+        this.authenticationService.logout();
 
-        // this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "menu";
+        this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "menu";
     }
 
     toggle() {
@@ -49,31 +50,17 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
+        // Abort if invalid form
         if (this.loginForm.invalid) {
             return;
         }
-        // let scope = "app";
-        // let provider = "username";
-
-        // this.credentials = this.f.username.value + ":" + this.f.password.value;
-        // this.basic = "Basic " + btoa(this.credentials);
-
+        // Set headers
         let headers = new HttpHeaders({
-            // 'Content-Type': 'application/json; charset=utf-8',
-            // 'cache-control': 'no-cache',
-            // // 'Authorization': this.basic,
-            // 'content-type': 'multipart/form-data'
-            // "Postman-Token": "7183075f-e9bf-4eef-b2a4-87a37e76af5f",
-            // "cache-control": "no-cache",
-            // "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
-            // "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-            // "Content-Type": "application/x-www-form-urlencoded",
-            "cache-control": "no-cache",
-            "Connection": "keep-alive"
-            // "Postman-Token": "8040fc26-f650-4dd2-8c3a-556de0c26e46"
+            'Content-Type': 'application/json; charset=utf-8',
+            'Accept': 'application/json; charset=utf-8'
         });
         let options = { headers: headers };
-
+        // Send request and subscribe to response
         return this.authenticationService
             .login(
                 this.f.username.value,
@@ -85,14 +72,18 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    console.log(data)
-                    console.log(this.route.snapshot.queryParams["returnUrl"]);
-                    // this.router.navigate([this.returnUrl]);
+                    // console.log(data)
+                    // console.log(this.route.snapshot.queryParams["returnUrl"]);
+                    this.router.navigate([this.returnUrl]);
                 },
                 error => {
+                    // console.log(error);
                     this._error = !this._error;
-                    this.error = JSON.stringify(error.statusText + " : " + error.message);
-                    console.log(error);
+                    if (error.status === 401) {
+                        this.error = 'We couldn’t find an account matching the username and password you entered. Please check your username and password and try again.'
+                    } else {
+                        this.error = error.statusText + " : " + error.message;
+                    }
                 }
             );
     }

@@ -12,7 +12,6 @@
         <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" (click)="onSubmit()">Submit</button>
         <div class="error-message" *ngIf="_error">
             {{ error }}
-            <!-- We couldn’t find an account matching the username and password you entered. Please check your username and password and try again. -->
         </div>
     </form>
 </div>
