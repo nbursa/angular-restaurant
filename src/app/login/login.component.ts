@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { LoginService } from "../login.service";
 import { first } from "rxjs/operators";
@@ -52,21 +52,34 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.invalid) {
             return;
         }
-        const scope = "app";
-        const provider = "username";
+        // let scope = "app";
+        // let provider = "username";
 
-        this.credentials = this.f.username.value + ":" + this.f.password.value;
-        this.basic = "Basic " + btoa(this.credentials);
+        // this.credentials = this.f.username.value + ":" + this.f.password.value;
+        // this.basic = "Basic " + btoa(this.credentials);
 
         let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': this.basic });
+            // 'Content-Type': 'application/json; charset=utf-8',
+            // 'cache-control': 'no-cache',
+            // // 'Authorization': this.basic,
+            // 'content-type': 'multipart/form-data'
+            // "Postman-Token": "7183075f-e9bf-4eef-b2a4-87a37e76af5f",
+            // "cache-control": "no-cache",
+            // "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
+            // "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+            // "Content-Type": "application/x-www-form-urlencoded",
+            "cache-control": "no-cache",
+            "Connection": "keep-alive"
+            // "Postman-Token": "8040fc26-f650-4dd2-8c3a-556de0c26e46"
+        });
         let options = { headers: headers };
 
         return this.authenticationService
             .login(
                 this.f.username.value,
                 this.f.password.value,
+                'username',
+                'app',
                 options
             )
             .pipe(first())
@@ -77,7 +90,7 @@ export class LoginComponent implements OnInit {
                     // this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    // this._error = !this._error;
+                    this._error = !this._error;
                     this.error = JSON.stringify(error.statusText + " : " + error.message);
                     console.log(error);
                 }

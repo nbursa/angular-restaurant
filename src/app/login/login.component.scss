@@ -1,13 +1,20 @@
 .login-form {
     position: relative;
     top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-    width: 380px;
+    left: initial;
+    transform: translate(0, -50%);
+    width: auto;
+    margin: 20px;
     padding: 30px;
     border-radius: 10px;
     background-color: var(--white);
     box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2);
+    @media (min-width: 390px) {
+        left: 50vw;
+        width: 380px;
+        margin: 0;
+        transform: translate(-50%, -50%);
+    }
     &:before {
         position: absolute;
         top: 47px;
@@ -24,82 +31,71 @@
         font-weight: var(--light);
         line-height: 80px;
     }
-    &.error {
+    .form {
         .form-group {
+            position: relative;
             .form-control {
-                border-bottom: 1px solid var(--red);
+                border: initial;
+                border-radius: initial;
+                outline: initial;
+                height: 28px;
+                margin-top: 30px;
+                border-bottom: 1px solid var(--gray);
+                outline-width: 0;
+                font-family:  var(--regular);
+                font-size: 16px;
+                line-height: 27px;
+                padding-left: 0;
+                &.error {
+                    border-bottom: 1px solid var(--red);
+                }
             }
             .eye-icon {
-
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 24px;
+                height: 24px;
+                background: url('src/assets/show pass.svg')no-repeat center center;
+                &.open:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: -3px;
+                    left: 12px;
+                    width: 1px;
+                    height: 30px;
+                    transform: rotate(45deg);
+                    background-color: var(--dark)
+                }
+            }
+        }
+        .btn {
+            display: block;
+            height: 40px;
+            margin: 39px auto 5px;
+            border-color: var(--blue);
+            border-radius: 5px;
+            background-color: var(--blue);
+            &:disabled {
+                border-color: var(--gray);
+                background-color: var(--gray);
+                opacity: 1;
+            }
+            @media (min-width: 285px) {
+                width: 180px;                
             }
         }
         .error-message {
-            display: block;
-        }
-    }
-    .form-group {
-        position: relative;
-        .form-control {
-            border: initial;
-            border-radius: initial;
-            outline: initial;
-            height: 28px;
-            margin-top: 30px;
-            border-bottom: 1px solid var(--gray);
-            outline-width: 0;
-            font-family:  var(--regular);
-            font-size: 16px;
-            line-height: 27px;
-            padding-left: 0;
-            // &:focus {
-            //     outline: none;
+            // display: none;
+            color: var(--red);
+            font-size: 11px;
+            line-height: 18px;
+            margin-top: 10px;
+            word-wrap: break-word;
+            // &.error {
+            //     display: block;
             // }
         }
-        .eye-icon {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 24px;
-            height: 24px;
-            background: url('src/assets/show pass.svg')no-repeat center center;
-            &.open:before {
-                content: '';
-                display: block;
-                position: absolute;
-                top: -3px;
-                left: 12px;
-                width: 1px;
-                height: 30px;
-                transform: rotate(45deg);
-                background-color: var(--dark)
-            }
-        }
-    }
-    .btn {
-        display: block;
-        height: 40px;
-        width: 180px;
-        margin: 39px auto 5px;
-        border-color: var(--blue);
-        border-radius: 5px;
-        background-color: var(--blue);
-        &:disabled {
-            border-color: var(--gray);
-            background-color: var(--gray);
-            opacity: 1;
-        }
-    }
-    .error-message {
-        display: none;
-        height: 36px;
-        width: 321px;
-        color: var(--red);
-        font-size: 11px;
-        line-height: 18px;
-        margin-top: 10px;
-        word-wrap: break-word;
-    }
-    .alert-danger {
-        word-wrap: break-word;
     }
 }
