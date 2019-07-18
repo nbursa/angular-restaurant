@@ -1,109 +1,120 @@
 .login-form {
+  position: relative;
+  top: 50vh;
+  left: initial;
+  transform: translate(0, -50%);
+  width: auto;
+  margin: 2rem;
+  padding: 3rem;
+  border-radius: 1rem;
+  background-color: var(--white);
+  box-shadow: 0 1rem 2rem 0 var(--black-shadow);
+
+  @media (min-width: 39rem) {
+    left: 50vw;
+    width: 38rem;
+    margin: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  &:before {
+    position: absolute;
+    top: 4.7rem;
+    left: 0;
+    content: '';
+    display: block;
+    width: .5rem;
+    height: 5rem;
+    background-color: var(--blue);
+    border-radius: 0 .3rem .3rem 0;
+  }
+
+  h1 {
+    font-size: 4.8rem;
+    font-weight: var(--light);
+    line-height: 8rem;
+  }
+}
+
+.form {
+  .form-group {
     position: relative;
-    top: 50vh;
-    left: initial;
-    transform: translate(0, -50%);
-    width: auto;
-    margin: 20px;
-    padding: 30px;
-    border-radius: 10px;
-    background-color: var(--white);
-    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2);
-    @media (min-width: 390px) {
-        left: 50vw;
-        width: 380px;
-        margin: 0;
-        transform: translate(-50%, -50%);
+
+    .form-control {
+      border: 0;
+      border-radius: 0;
+      outline: 0;
+      height: 2.8rem;
+      margin-top: 3rem;
+      border-bottom: .1rem solid var(--gray);
+      outline-width: 0;
+      font-family: var(--regular);
+      font-size: 1.6rem;
+      line-height: 2.7rem;
+      padding-left: 0;
+      background-color: var(--white) !important;
+      -webkit-appearance: none;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &.error {
+        border-bottom: .1rem solid var(--red);
+      }
+
+      &-internal-autofill-selected {
+        background-color: var(--white) !important;
+      }
     }
-    &:before {
-        position: absolute;
-        top: 47px;
-        left: 0;
+
+    .eye-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      background: url('src/assets/show pass.svg')no-repeat center center;
+
+      &.open:before {
         content: '';
         display: block;
-        width: 5px;
-        height: 50px;
-        background-color: var(--blue);
-        border-radius: 0 3px 3px 0;
+        position: absolute;
+        top: -.3rem;
+        left: 1.2rem;
+        width: .1rem;
+        height: 3rem;
+        transform: rotate(45deg);
+        background-color: var(--dark)
+      }
     }
-    h1{
-        font-size: 48px;
-        font-weight: var(--light);
-        line-height: 80px;
+  }
+
+  .btn {
+    display: block;
+    height: 4rem;
+    margin: 3.9rem auto .5rem;
+    border-color: var(--blue);
+    border-radius: .5rem;
+    background-color: var(--blue);
+    font-size: 2rem;
+
+    &:disabled {
+      border-color: var(--gray);
+      background-color: var(--gray);
+      opacity: 1;
     }
-    .form {
-        .form-group {
-            position: relative;
-            .form-control {
-                border: 0;
-                border-radius: 0;
-                outline: 0;
-                height: 28px;
-                margin-top: 30px;
-                border-bottom: 1px solid var(--gray);
-                outline-width: 0;
-                font-family:  var(--regular);
-                font-size: 16px;
-                line-height: 27px;
-                padding-left: 0;
-                background-color: var(--white) !important;
-                -webkit-appearance: none;
-                &:focus {
-                    box-shadow: none;
-                }
-                &.error {
-                    border-bottom: 1px solid var(--red);
-                }
-                &-internal-autofill-selected {
-                    background-color: var(--white) !important;
-                }
-            }
-            .eye-icon {
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 24px;
-                height: 24px;
-                background: url('src/assets/show pass.svg')no-repeat center center;
-                &.open:before {
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    top: -3px;
-                    left: 12px;
-                    width: 1px;
-                    height: 30px;
-                    transform: rotate(45deg);
-                    background-color: var(--dark)
-                }
-            }
-        }
-        .btn {
-            display: block;
-            height: 40px;
-            margin: 39px auto 5px;
-            border-color: var(--blue);
-            border-radius: 5px;
-            background-color: var(--blue);
-            &:disabled {
-                border-color: var(--gray);
-                background-color: var(--gray);
-                opacity: 1;
-            }
-            @media (min-width: 285px) {
-                width: 180px;                
-            }
-        }
-        .error-message {
-            // display: none;
-            color: var(--red);
-            font-size: 11px;
-            line-height: 18px;
-            margin-top: 10px;
-            word-wrap: break-word;
-            // &.error {
-            //     display: block;
-            // }
-        }
+
+    @media (min-width: 28.5rem) {
+      width: 18rem;
     }
+  }
+
+  .error-message {
+    color: var(--red);
+    font-size: 1.1rem;
+    line-height: 1.8rem;
+    margin-top: 1rem;
+    word-wrap: break-word;
+  }
 }

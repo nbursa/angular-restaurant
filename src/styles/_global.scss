@@ -1,7 +1,8 @@
-// Global styles
-body {
-    position: relative;
-    font-family: var(--regular);
-    background-color: var(--white);
-    color: var(--darkGray);
+:root {
+    body {
+        position: relative;
+        font-family: var(--regular);
+        background-color: var(--white);
+        color: var(--darkGray);
+    }
 }

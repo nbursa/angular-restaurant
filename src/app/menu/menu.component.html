@@ -1,1 +1,32 @@
-<p>menu works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h1 class="logo m-0">Logo</h1>
+    <button class="btn" type="submit" (click)="logOut()">Log out</button>
+</nav>
+
+<main class="main d-flex">
+    <div class="container-fluid m-sm-0">
+        <div class="row main-heading d-flex">
+            <h2 class="title">Restaurant menu</h2>
+            <div class="input-group-prepend">
+                <input type="text" class="form-control search" placeholder="Pretraga" aria-label="Search"
+                    aria-describedby="basic-addon1" onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Pretraga'" (input)="onSearchChange($event.target.value)">
+                <i class="icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid dishes d-flex m-sm-0">
+        <div class="card" *ngFor="let dish of dishes; let i = index">
+            <img class="card-img-top" src="{{dish.featured_photo.content.url}}" alt="Card image cap">
+            <div class="card-body d-flex">
+                <div class="title-spacer">
+                    <h5 class="card-title title m-0">{{dish.name}}</h5>
+                    <div class="origin">Italian</div>
+                </div>
+                <p class="card-text engridients m-0">{{dish.review.content}}</p>
+                <h6 class="card-title mb-0 place">{{dish.place_name}}</h6>
+                <p class="card-text date"><small>Last updated: {{formatDate(dish.updated_at)}}</small></p>
+            </div>
+        </div>
+    </div>
+</main>
