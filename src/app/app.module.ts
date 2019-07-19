@@ -11,8 +11,6 @@ import { MenuComponent } from './menu/menu.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { LoginService } from './login.service';
 
-// import { BasicAuthInterceptor, ErrorInterceptor } from './_helpers';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,9 +27,7 @@ import { LoginService } from './login.service';
     ModalModule.forRoot()
   ],
   providers: [
-    LoginService,
-    // { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    LoginService
   ],
   bootstrap: [AppComponent]
 })
