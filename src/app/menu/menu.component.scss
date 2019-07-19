@@ -57,7 +57,7 @@
     padding: 6.8rem 13rem 4.9rem;
   }
 
-  &-heading {
+  .main-heading {
     justify-content: space-between;
     margin-bottom: 3.4rem;
     align-items: flex-end;
@@ -78,7 +78,7 @@
         height: 100%;
         width: 0.5rem;
         border-radius: 0 0.3rem 0.3rem 0;
-        background-color: #ffbda7;
+        background-color: var(--orange);
         position: absolute;
         top: 0;
         left: 0;
@@ -178,6 +178,34 @@
   flex-wrap: wrap;
   padding: 0;
 
+  .loader {
+    display: block;
+    justify-self: center;
+    width: 6.4rem;
+    height: 6.4rem;
+    margin: 20vh auto 0 50%;
+    transform: translate(-50%, -50%);
+  }
+  .loader:after {
+    content: " ";
+    display: block;
+    width: 4.6rem;
+    height: 4.6rem;
+    margin: .1rem;
+    border-radius: 50%;
+    border: .5rem solid var(--blue);
+    border-color: var(--blue) transparent var(--blue) transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   .card {
     width: 100%;
     margin-right: 0;
@@ -185,7 +213,7 @@
     margin-bottom: 2rem;
     box-sizing: border-box;
     overflow: hidden;
-    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.5rem 1rem 0 var(--small-black-shadow);
     border-radius: 1rem;
 
     @media (min-width: 576px) and (max-width: 1055px) {
@@ -226,7 +254,8 @@
       font-size: 2.6rem;
       font-weight: var(--bold);
       line-height: 1;
-      color: #4a4a4a;
+      color: var(--dark);
+      padding-bottom: .5rem;
     }
 
     .origin {
@@ -237,25 +266,26 @@
       height: 2rem;
       font-size: 1.1rem;
       font-weight: var(--light);
-      color: #4a4a4a;
-      border: 0.1rem solid #4a4a4a;
+      color: var(--dark);
+      border: 0.1rem solid var(--dark);
       border-radius: 0.3rem;
     }
   }
 
   .card-text.engridients {
     font-size: 1.2rem;
-    color: #d8d8d8;
+    color: var(--gray);
+    padding-bottom: .5rem;
   }
 
   .card-title.place {
     font-size: 1.8rem;
     font-weight: var(--bold);
-    color: #313131;
+    color: var(--darker);
   }
 
   .card-text.date {
     font-size: 1.6rem;
-    color: #313131;
+    color: var(--darker);
   }
 }

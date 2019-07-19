@@ -13,6 +13,7 @@ export class MenuComponent implements OnInit {
   dishes: [];
   name: string;
   urlString: string;
+  loading: boolean;
 
   constructor(private menuService: MenuService, private router: Router) {}
 
@@ -57,7 +58,6 @@ export class MenuComponent implements OnInit {
       return i + "th";
     }
     let newDate = monthNames[monthIndex] + " " + ordinal_suffix_of(day);
-    // console.log(newDate);
     return newDate;
   }
 
@@ -73,13 +73,11 @@ export class MenuComponent implements OnInit {
     } else {
       this.urlString = `http://main-service.staging.8itapp.com/dishes?lat=40.756608&lng=-73.983329&radius=1&name=${name}`;
     }
-    this.getDishes(this.urlString);
-  }
-
-  getDishes(string: string) {
-    return this.menuService.getMenu(string, this.token).subscribe(
+    this.loading = true;
+    this.menuService.getMenu(this.urlString, this.token).subscribe(
       dishes => {
         this.dishes = dishes;
+        this.loading = false;
         return this.dishes;
       },
       error => {

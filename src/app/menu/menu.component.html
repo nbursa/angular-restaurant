@@ -16,6 +16,7 @@
         </div>
     </div>
     <div class="container-fluid dishes d-flex m-sm-0">
+        <div class="loader" *ngIf="loading"></div>
         <div class="card" *ngFor="let dish of dishes; let i = index">
             <img class="card-img-top" src="{{dish.featured_photo.content.url}}" alt="Card image cap">
             <div class="card-body d-flex">
